@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#126e75">
+  <title>TaChi Seller — Trung tâm người bán</title>
+  <style>
+    :root{--teal:#137c82;--teal-dark:#105e68;--teal-soft:#e9f6f5;--ink:#28343a;--muted:#75838a;--line:#e8edef;--bg:#f4f7f8;--orange:#f27b50;--shadow:0 2px 8px #1c39400a}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.45 Arial,Helvetica,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}
+    .top{height:56px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 22px;gap:14px;position:sticky;top:0;z-index:5}.brand{display:flex;align-items:center;gap:9px;font-size:16px}.logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(145deg,#16a0a1,#136c79);color:#fff;display:grid;place-items:center;font-size:17px}.brand b{color:var(--teal-dark)}.brand small{border-left:1px solid #dfe5e7;padding-left:13px;color:#657279;font-size:14px}.top-right{margin-left:auto;display:flex;align-items:center;gap:17px;color:#68757c}.top-right button{border:0;background:none;color:inherit;font-size:17px}.shop-user{display:flex;align-items:center;gap:8px;border-left:1px solid var(--line);padding-left:16px}.user-avatar{width:29px;height:29px;border-radius:50%;background:#e8f2f3;display:grid;place-items:center}
+    .layout{display:grid;grid-template-columns:224px minmax(0,1fr);max-width:1600px;margin:auto;min-height:calc(100vh - 56px)}.sidebar{background:#fff;border-right:1px solid var(--line);padding:12px 10px 24px;overflow:auto}.side-title{font-size:11px;color:#829096;font-weight:bold;text-transform:uppercase;letter-spacing:.5px;padding:12px 10px 5px}.side-btn{display:flex;align-items:center;gap:11px;width:100%;border:0;background:transparent;text-align:left;color:#536168;padding:9px 10px;border-radius:5px;font-size:12px}.side-btn .ico{width:18px;text-align:center;color:#83969a}.side-btn:hover,.side-btn.active{background:#eaf6f5;color:var(--teal-dark);font-weight:bold}.side-btn.active .ico{color:var(--teal)}.side-sep{height:1px;background:var(--line);margin:7px 8px}
+    .workspace{padding:14px 18px 30px;min-width:0}.notice{border:1px solid #f1d594;background:#fff9e8;color:#765a20;padding:9px 12px;border-radius:5px;margin-bottom:8px;display:flex;gap:8px;align-items:center}.notice.info{background:#eef6ff;border-color:#cfe1f8;color:#4e6f97}.notice button{margin-left:auto;border:0;background:none;color:#84949b}
+    .dashboard-grid{display:grid;grid-template-columns:minmax(0,1fr) 286px;gap:13px;margin-top:12px;align-items:start}.main-column,.right-column{display:grid;gap:12px}.card{background:white;border:1px solid #edf0f1;border-radius:7px;box-shadow:var(--shadow)}.card-pad{padding:15px}.card-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.card-title h2{font-size:15px;margin:0;font-weight:700}.card-title small{color:var(--muted)}.link{border:0;background:none;color:#387ba7;font-size:12px}
+    .quick-stats{display:grid;grid-template-columns:repeat(4,1fr);text-align:center;padding:14px 5px}.quick-stat{border-right:1px solid var(--line);padding:2px 5px}.quick-stat:last-child{border:0}.quick-stat strong{font-size:23px;color:var(--teal);display:block}.quick-stat span{font-size:11px;color:#69777e}
+    .sales-metrics{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--line);border-radius:5px}.metric{padding:12px;border-right:1px solid var(--line)}.metric:last-child{border:0}.metric small{font-size:10px;color:#78868c;display:flex;align-items:center;gap:4px}.metric strong{display:block;font-size:19px;font-weight:500;margin:5px 0}.metric em{font-size:10px;color:#97a2a7;font-style:normal}.metric .good{color:#25a17d}
+    .service-grid,.promo-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.service{border:1px solid var(--line);border-radius:5px;padding:12px;min-height:126px;position:relative;overflow:hidden}.service h3{margin:0 0 7px;font-size:12px}.service p{font-size:10px;color:#738087;margin:0;max-width:90%}.service-visual{margin-top:11px;height:36px;border-radius:4px;background:linear-gradient(110deg,#fff1e9,#f7e6dd);display:flex;align-items:center;padding:0 13px;color:#e48a68;font-size:11px}.service .mini-btn{position:absolute;bottom:10px;right:10px;border:1px solid var(--orange);border-radius:4px;background:#fff;color:#e66c45;padding:4px 8px;font-size:10px}.service.blue .service-visual{background:linear-gradient(110deg,#eef5fc,#e8f0fa);color:#719ac6}
+    .lower-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.banner-art{height:60px;border-radius:5px;background:linear-gradient(115deg,#fbebe7,#fbe2dc 50%,#fdeee9);display:flex;align-items:center;padding:13px;color:#c7755e;margin-bottom:10px}.live-banner{height:125px;background:linear-gradient(125deg,#fff0ea,#ffe1d5);border-radius:5px;padding:15px;position:relative;overflow:hidden}.live-banner:after{content:"📹";position:absolute;right:18px;bottom:10px;font-size:58px;opacity:.7}.live-banner h3{margin:0 0 4px}.live-banner p{margin:0 0 10px;font-size:11px}.primary{background:var(--teal);color:white;border:0;border-radius:4px;padding:8px 13px}.primary:hover{background:var(--teal-dark)}.secondary{background:white;color:var(--teal);border:1px solid var(--teal);border-radius:4px;padding:7px 11px}
+    .health{display:flex;justify-content:space-between;align-items:center}.health b{color:#218b78;font-size:18px}.health small{display:block;color:#8b969a}.recommendation{padding:11px;border:1px solid var(--line);border-radius:5px;margin-top:9px}.recommendation h3{font-size:11px;margin:0 0 5px}.recommendation p{color:#718087;font-size:10px;margin:0 0 9px}.recommendation .row{display:flex;justify-content:space-between;align-items:center}.recommendation button{border:1px solid var(--orange);background:#fff;color:#e76e46;border-radius:4px;padding:4px 8px;font-size:10px}.tiny-progress{height:5px;background:#e9eeee;border-radius:8px;margin:7px 0}.tiny-progress i{display:block;height:100%;width:32%;background:#31ae9d;border-radius:8px}
+    .news-item{border-top:1px solid var(--line);padding:10px 0;font-size:11px}.news-item:first-of-type{border:0}.news-item small{display:block;color:#8a969b;margin-top:3px}
+    .page-header{display:flex;align-items:center;justify-content:space-between;margin:4px 0 13px}.page-header h1{font-size:20px;margin:0}.page-box{padding:18px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:13px}.toolbar input,.toolbar select,.form-control{border:1px solid #dce4e6;border-radius:4px;padding:9px 10px;background:white}.toolbar input{min-width:220px}.data-table{width:100%;border-collapse:collapse;font-size:12px}.data-table th,.data-table td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--line)}.data-table th{color:#75838a;background:#f8fafb;font-weight:600}.status{border-radius:20px;padding:4px 8px;background:#fff5e3;color:#b87925;font-size:10px}.status.ok{background:#e9f7f1;color:#248366}.product-thumb{width:35px;height:35px;background:#f4f7f7;border-radius:5px;display:inline-grid;place-items:center;margin-right:8px;font-size:19px;vertical-align:middle}.seller-form{max-width:680px}.seller-form label{display:block;font-size:12px;margin:0 0 5px;color:#56646a}.seller-form .field{margin-bottom:13px}.seller-form input,.seller-form select,.seller-form textarea{width:100%;padding:10px;border:1px solid #dce4e6;border-radius:4px}.seller-form textarea{min-height:88px}.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.upload{height:100px;border:1px dashed #b6c8cb;border-radius:5px;display:grid;place-items:center;color:#718087;background:#fafcfc}.shop-cover{height:155px;border-radius:7px;background:linear-gradient(120deg,#d9f1eb,#e5e9f5 65%,#f9e3da);display:flex;align-items:center;padding:24px;margin-bottom:16px}.shop-cover h2{margin:0}.shop-cover p{margin:4px 0;color:#62757a}
+    .chat-shell{height:calc(100vh - 126px);min-height:520px;background:#fff;border:1px solid #eef0f1;border-radius:7px;overflow:hidden;display:grid;grid-template-columns:320px minmax(0,1fr)}.chat-main{min-width:0;display:flex;flex-direction:column}.chat-main-header{height:54px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 16px}.chat-main-header h1{font-size:17px;color:#ed5050;margin:0}.chat-header-actions{display:flex;gap:13px}.chat-header-actions button{border:0;background:none;color:#7d898e;font-size:18px}.chat-sidebar{border-right:1px solid var(--line);background:#fff}.chat-toolbar{display:flex;align-items:center;gap:8px;padding:10px 12px}.chat-search{position:relative;flex:1}.chat-search span{position:absolute;left:11px;top:7px;color:#94a0a5}.chat-search input{width:100%;height:34px;border:1px solid #dfe5e7;border-radius:5px;padding:6px 8px 6px 34px;outline:none}.chat-toolbar select{height:34px;border:1px solid #dfe5e7;border-radius:5px;background:white;padding:0 8px;color:#526168}.chat-conversations{overflow:auto;height:calc(100% - 54px)}.chat-item{height:72px;padding:9px 12px;display:grid;grid-template-columns:44px minmax(0,1fr);gap:9px;border-bottom:1px solid #f0f2f3;cursor:pointer}.chat-item:hover,.chat-item.active{background:#f6faf9}.chat-avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:white;font-weight:bold;font-size:12px;background:linear-gradient(145deg,#264a9a,#ef3d31);border:3px solid #fff;box-shadow:0 0 0 1px #e7eaeb}.chat-avatar.green{background:linear-gradient(145deg,#31a96b,#0b6d67)}.chat-avatar.mall{background:linear-gradient(145deg,#e8aa38,#8bc6d7);font-size:15px}.chat-item-head{display:flex;justify-content:space-between;align-items:center;height:20px}.chat-name{font-weight:bold;font-size:12px}.chat-date{color:#87939a;font-size:10px}.chat-item-body{display:flex;justify-content:space-between;align-items:center;gap:5px}.chat-preview{min-width:0;color:#718087;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chat-tag{flex:none;border-radius:3px;padding:2px 5px;font-size:9px;color:#ec6a73;background:#fff3f4}.chat-empty{min-height:0;flex:1;display:flex;align-items:center;justify-content:center;text-align:center;color:#7d898f}.chat-empty-inner{transform:translateY(-18px)}.chat-illustration{width:210px;height:125px;margin:0 auto 10px;position:relative}.laptop-screen{position:absolute;width:150px;height:95px;left:30px;top:5px;border:9px solid #aeb7bf;border-radius:8px;border-bottom-width:12px;background:#f8fafb}.laptop-screen:before{content:"";position:absolute;left:18px;top:16px;width:62px;height:29px;border-radius:4px;background:#4d76c4}.laptop-screen:after{content:"";position:absolute;left:18px;top:56px;width:88px;height:4px;border-radius:3px;background:#9bb0c2;box-shadow:0 10px 0 #bcc7ce}.laptop-base{position:absolute;width:175px;height:8px;left:18px;bottom:16px;border-radius:6px;background:#9da7ae}.laptop-base:before{content:"";position:absolute;width:45px;height:5px;left:65px;top:-5px;border-radius:5px 5px 0 0;background:#7f8a91}.chat-bubble-art{position:absolute;right:15px;bottom:27px;width:64px;height:38px;border-radius:5px;background:#ef5043;box-shadow:0 6px 12px #bd4b3e1a}.chat-bubble-art:before{content:"•••";position:absolute;color:white;font-size:16px;left:17px;top:3px;letter-spacing:3px}.chat-empty h2{margin:7px 0 3px;font-size:15px;color:#28343a}.chat-empty p{margin:0;color:#a1a9ad}.chat-conversation{display:flex;flex-direction:column;flex:1;min-height:0}.chat-conversation-head{height:58px;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 14px;gap:9px}.chat-conversation-head .chat-avatar{width:36px;height:36px}.chat-conversation-head strong{display:block}.chat-conversation-head small{color:#78918a}.chat-message-list{flex:1;overflow:auto;padding:18px;background:#fafbfb}.message-row{display:flex;margin-bottom:10px}.message-row.mine{justify-content:flex-end}.message-bubble{max-width:66%;padding:9px 11px;border-radius:10px 10px 10px 2px;background:white;border:1px solid #edf0f1;font-size:12px}.mine .message-bubble{background:#e8f5f3;border-color:#dbece9;border-radius:10px 10px 2px 10px}.message-time{display:block;margin-top:4px;color:#9aa4a8;font-size:9px;text-align:right}.chat-composer{height:66px;border-top:1px solid var(--line);display:flex;align-items:center;padding:10px 12px;gap:8px}.chat-composer button{border:0;background:none;color:#87958a;font-size:18px}.chat-composer input{flex:1;height:38px;border:1px solid #dfe5e7;border-radius:5px;padding:0 11px;outline:none}.chat-composer .send-chat{height:38px;padding:0 13px;border-radius:5px;background:var(--teal);color:white}.workspace.chat-mode{padding:14px 18px}.workspace.chat-mode #notices{display:none}
+    .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#25383c;color:white;border-radius:5px;padding:10px 16px;box-shadow:0 4px 15px #0002;display:none;z-index:10}
+    @media(max-width:1050px){.layout{grid-template-columns:190px minmax(0,1fr)}.dashboard-grid{grid-template-columns:minmax(0,1fr) 245px}.workspace{padding:12px}.metric{padding:9px 7px}.metric strong{font-size:16px}}
+    @media(max-width:780px){.top{padding:0 12px}.layout{grid-template-columns:1fr}.sidebar{display:flex;gap:4px;overflow:auto;padding:7px;border-right:0;border-bottom:1px solid var(--line)}.side-title,.side-sep{display:none}.side-btn{white-space:nowrap;width:auto;padding:8px}.side-btn .ico{display:none}.workspace{padding:10px}.dashboard-grid{grid-template-columns:1fr}.right-column{grid-template-columns:1fr 1fr}.sales-metrics{grid-template-columns:repeat(2,1fr)}.metric:nth-child(2){border-right:0}.metric:nth-child(n+3){border-top:1px solid var(--line)}.metric:last-child{border-top:1px solid var(--line)}}
+    @media(max-width:500px){.top-right{gap:7px}.top-right>button{display:none}.brand small{font-size:12px}.service-grid,.promo-grid,.lower-grid,.right-column{grid-template-columns:1fr}.quick-stat strong{font-size:19px}.quick-stat span{font-size:9px}.field-row{grid-template-columns:1fr}.data-table{min-width:620px}.page-box{overflow:auto}.page-header h1{font-size:17px}}
+    @media(max-width:780px){.chat-shell{height:calc(100vh - 145px);grid-template-columns:220px minmax(0,1fr)}.chat-toolbar{flex-direction:column;align-items:stretch}.chat-toolbar select{width:100%}}
+    @media(max-width:560px){.chat-shell{height:calc(100vh - 150px);grid-template-columns:1fr}.chat-sidebar{display:none}.chat-empty h2{font-size:14px}.chat-main-header{height:48px}.chat-conversation-head{height:52px}.chat-composer{height:58px}.chat-composer button:first-child{display:none}}
+  </style>
+  <style>
+    :root{--teal:#287d70;--teal-dark:#184b46;--teal-soft:#eaf5ef;--ink:#253d38;--muted:#75877f;--line:#e4ece6;--bg:#f2f6f1;--orange:#e78765;--shadow:0 10px 28px #173e3510}
+    body{background:var(--bg);color:var(--ink);font-family:"Segoe UI",Arial,sans-serif}
+    .top{height:62px;background:linear-gradient(100deg,#173f3b,#24665b);border:0;color:#fff;padding:0 max(18px,calc((100vw - 1480px)/2));box-shadow:0 5px 20px #173e3520}
+    .brand b{color:#fff}.brand small{border-color:#ffffff3d;color:#d4e7df}
+    .layout{max-width:1540px;grid-template-columns:224px minmax(0,1fr);gap:0 17px;padding:0 18px}
+    .sidebar{position:sticky;top:78px;height:fit-content;max-height:calc(100vh - 92px);margin:17px 0;padding:13px 10px;border:1px solid #e6ede7;border-radius:16px;box-shadow:var(--shadow)}
+    .side-title{color:#83968d;padding-left:13px}
+    .side-btn{border-radius:10px;padding:10px 11px;color:#526b61}
+    .side-btn:hover,.side-btn.active{background:#edf7ef;color:#246f61}
+    .workspace{padding:18px 0 35px}
+    .notice{border-radius:11px}
+    .dashboard-grid{gap:16px;margin-top:16px}
+    .card{border-color:#e5ece6;border-radius:16px;box-shadow:var(--shadow)}
+    .card-pad{padding:19px}
+    .card-title h2,.page-header h1{color:#284b41}
+    .link{color:#2c796b}
+    .quick-stats{padding:18px 8px}
+    .quick-stat strong{color:#287d70}
+    .sales-metrics{border-radius:11px;border-color:#e5ece6}
+    .service{border-radius:13px;min-height:145px;background:linear-gradient(145deg,#fff,#f8fbf8)}
+    .service-visual{border-radius:9px;background:linear-gradient(110deg,#edf7ef,#e0f0e7);color:#4d8c76}
+    .service.blue .service-visual{background:linear-gradient(110deg,#f8eee8,#f5e1d6);color:#b67456}
+    .service .mini-btn{border-color:#8fbea8;border-radius:8px;color:#287767}
+    .banner-art,.live-banner{border-radius:13px;background:linear-gradient(120deg,#edf6ee,#f5e7db);color:#53766a}
+    .live-banner{background:linear-gradient(120deg,#eaf5ed,#d9eee2)}
+    .primary{background:linear-gradient(135deg,#2c8173,#205e56);border-radius:9px;padding:9px 14px}
+    .primary:hover{background:#184e48}
+    .secondary{border-radius:9px;border-color:#8ebda8;color:#287669}
+    .recommendation{border-color:#e3ece5;border-radius:12px}
+    .recommendation button{border-color:#e0a184;border-radius:8px;color:#b96c50}
+    .tiny-progress{background:#e8f0e9}.tiny-progress i{background:#55a28a}
+    .toolbar input,.toolbar select,.form-control,.seller-form input,.seller-form select,.seller-form textarea{border-color:#dfe8e1;border-radius:9px}
+    .data-table th{background:#f1f7f2;color:#60786e}
+    .data-table td{border-color:#edf1ed}
+    .status{border-radius:20px}
+    .status.ok{background:#e5f4ec;color:#24795f}
+    .shop-cover{border-radius:15px}
+    .toast{border-radius:10px;background:#1f514b}
+    @media(max-width:780px){.layout{grid-template-columns:1fr;padding:0 12px}.sidebar{position:static;height:auto;max-height:none;margin:12px 0 0}.workspace{padding:12px 0 28px}}
+    @media(max-width:500px){.top{padding:0 12px}.card-pad{padding:14px}.service{min-height:132px}}
+  </style>
+</head>
+<body>
+  <header class="top">
+    <a href="./index.html" class="brand"><span class="logo">T</span><b>TaChi</b><small>Trung tâm Người Bán</small></a>
+    <div class="top-right"><button onclick="notify('Bạn không có thông báo mới')">♧</button><button onclick="notify('Trung tâm trợ giúp người bán')">⌘</button><button onclick="notify('Hướng dẫn sử dụng Kênh Người Bán')">▤</button><div class="shop-user"><span class="user-avatar">👤</span><span>Shop Nhà Mây</span><span>⌄</span></div></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="side-title">Vận hành cửa hàng</div>
+      <button class="side-btn active" data-page="overview"><span class="ico">⌂</span>Tổng quan</button>
+      <button class="side-btn" data-page="orders"><span class="ico">▣</span>Quản lý đơn hàng</button>
+      <button class="side-btn" data-page="orders"><span class="ico">↩</span>Trả hàng / Hoàn tiền</button>
+      <div class="side-sep"></div>
+      <div class="side-title">Sản phẩm & kho hàng</div>
+      <button class="side-btn" data-page="products"><span class="ico">▦</span>Tất cả sản phẩm</button>
+      <button class="side-btn" data-page="add-product"><span class="ico">＋</span>Thêm sản phẩm</button>
+      <button class="side-btn" data-page="products"><span class="ico">▤</span>Quản lý tồn kho</button>
+      <div class="side-sep"></div>
+      <div class="side-title">Tăng trưởng</div>
+      <button class="side-btn" data-page="marketing"><span class="ico">✦</span>Kênh Marketing</button>
+      <button class="side-btn" data-page="boost"><span class="ico">↗</span>Đẩy sản phẩm</button>
+      <button class="side-btn" data-page="marketing"><span class="ico">％</span>Khuyến mãi của shop</button>
+      <button class="side-btn" data-page="marketing"><span class="ico">◉</span>Livestream</button>
+      <div class="side-sep"></div>
+      <div class="side-title">Cửa hàng & hỗ trợ</div>
+      <button class="side-btn" data-page="shop"><span class="ico">▧</span>Trang trí gian hàng</button>
+      <button class="side-btn" data-page="chat"><span class="ico">☏</span>Quản lý chat</button>
+      <button class="side-btn" data-page="analytics"><span class="ico">▥</span>Phân tích bán hàng</button>
+    </aside>
+    <main class="workspace">
+      <div id="notices"><div class="notice"><b>ⓘ</b> Shop của bạn đang hoạt động tốt. Cập nhật thông tin lấy hàng để giao đơn nhanh hơn.<button onclick="this.parentElement.remove()">×</button></div><div class="notice info"><b>◀</b> TaChi Seller tháng này: thêm nhiều công cụ mới giúp shop tăng trưởng <a href="#" onclick="notify('Đang mở bản tin');return false"><u>Xem chi tiết</u></a><button onclick="this.parentElement.remove()">×</button></div></div>
+      <div id="page"></div>
+    </main>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script>
+    let inventory=[
+      {name:"Tai nghe Bluetooth không dây",category:"Điện tử",price:189000,stock:42,icon:"🎧",status:"Đang bán"},
+      {name:"Bình giữ nhiệt inox 500ml",category:"Nhà cửa",price:99000,stock:18,icon:"🥤",status:"Đang bán"},
+      {name:"Áo thun cotton basic unisex",category:"Thời trang",price:129000,stock:0,icon:"👕",status:"Hết hàng"},
+      {name:"Đèn bàn học ánh sáng dịu",category:"Điện tử",price:159000,stock:26,icon:"💡",status:"Đang bán"}
+    ];
+    const fmt=n=>new Intl.NumberFormat("vi-VN").format(n)+"₫";
+    let activePage="overview";
+    function notify(message){const t=document.getElementById("toast");t.textContent=message;t.style.display="block";clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.style.display="none",2500)}
+    function go(page){activePage=page;document.querySelectorAll(".side-btn").forEach(b=>b.classList.toggle("active",b.dataset.page===page));render()}
+    function dashboard(){return `<div class="dashboard-grid"><div class="main-column">
+      <section class="card quick-stats">${[["0","Chờ lấy hàng"],["0","Đang xử lý"],["0","Trả hàng / Hoàn tiền"],["0","Sản phẩm bị khóa"]].map(x=>`<div class="quick-stat"><strong>${x[0]}</strong><span>${x[1]}</span></div>`).join("")}</section>
+      <section class="card card-pad"><div class="card-title"><h2>Phân tích bán hàng</h2><small>Hôm nay · Dữ liệu cập nhật lúc 09:00</small><button class="link" onclick="go('analytics')">Xem báo cáo ›</button></div><div class="sales-metrics">${[["Doanh số","2.450.000₫"],["Lượt truy cập","1.286"],["Lượt xem sản phẩm","3.840"],["Đơn hàng","18"],["Tỷ lệ chuyển đổi","3,2%"]].map((x,i)=>`<div class="metric"><small>${x[0]} ⓘ</small><strong>${x[1]}</strong><em class="good">${i===0?"↑ 12,8%":"↑ 4,6%"} so với hôm qua</em></div>`).join("")}</div></section>
+      <section class="card card-pad"><div class="card-title"><h2>Công cụ tăng trưởng</h2><button class="link" onclick="go('marketing')">Khám phá thêm ›</button></div><div class="service-grid"><article class="service"><h3>🚀 Chương trình tăng tốc doanh số</h3><p>Tham gia chiến dịch để sản phẩm tiếp cận thêm khách hàng trong các ngày hội mua sắm.</p><div class="service-visual">✦ Ngày hội mua sắm · Ưu đãi dành cho shop</div><button class="mini-btn" onclick="go('marketing')">Tìm hiểu</button></article><article class="service blue"><h3>🔎 Quảng bá sản phẩm</h3><p>Chủ động tăng lượt hiển thị và theo dõi hiệu quả chiến dịch ngay tại đây.</p><div class="service-visual">Tối ưu ngân sách quảng cáo của shop</div><button class="mini-btn" onclick="go('boost')">Tạo chiến dịch</button></article></div></section>
+      <div class="lower-grid"><section class="card card-pad"><div class="card-title"><h2>Tăng đơn cùng nhà sáng tạo</h2><button class="link" onclick="go('marketing')">Thêm ›</button></div><div class="banner-art">Kết nối sản phẩm của shop với nhà sáng tạo nội dung</div><p style="font-size:11px;color:#738087">Mở rộng tệp khách hàng bằng chương trình tiếp thị liên kết.</p><button class="secondary" onclick="go('marketing')">Khám phá chương trình</button></section><section class="card card-pad"><div class="card-title"><h2>Livestream của shop</h2><button class="link" onclick="go('marketing')">Quản lý ›</button></div><div class="live-banner"><h3>Bắt đầu livestream ngay</h3><p>Giới thiệu sản phẩm, trò chuyện với khách hàng.</p><button class="primary" onclick="notify('Tính năng livestream sẽ sớm mở')">＋ Tạo lịch phát</button></div></section></div>
+      </div><aside class="right-column"><section class="card card-pad"><div class="card-title"><h2>Sức khỏe cửa hàng</h2><button class="link" onclick="notify('Shop đang hoạt động ổn định')">Chi tiết ›</button></div><div class="health"><div><b>Tốt</b><small>Không có vi phạm mới</small></div><span style="font-size:27px">🟢</span></div></section>
+      <section class="card card-pad"><div class="card-title"><h2>Gợi ý dành cho bạn</h2><small>3 gợi ý</small></div>${recommendation("📦","Bổ sung sản phẩm cho shop","Đăng thêm sản phẩm để khách hàng có nhiều lựa chọn hơn.","Đăng sản phẩm","add-product")}${recommendation("🎨","Làm mới gian hàng","Tạo diện mạo riêng để khách dễ nhận biết shop.","Trang trí","shop")}${recommendation("📈","Thử quảng bá sản phẩm","Tiếp cận thêm khách hàng có nhu cầu.","Bắt đầu","boost")}</section>
+      <section class="card card-pad"><div class="card-title"><h2>Tin từ TaChi</h2><button class="link" onclick="notify('Bạn đang xem tin mới nhất')">Xem tất cả ›</button></div><div class="news-item">🗓 Chuẩn bị cho mùa mua sắm cuối năm<small>Cập nhật · 2 giờ trước</small></div><div class="news-item">💡 Mẹo chụp ảnh sản phẩm bằng điện thoại<small>Kiến thức bán hàng · Hôm qua</small></div><div class="news-item">🚚 Cập nhật khung giờ lấy hàng<small>Vận chuyển · 18/11/2026</small></div></section></aside></div>`}
+    function recommendation(icon,title,text,label,page){return `<article class="recommendation"><h3>${icon} ${title}</h3><p>${text}</p><div class="row"><span class="hint">Gợi ý cho shop</span><button onclick="go('${page}')">${label}</button></div>${page==="add-product"?'<div class="tiny-progress"><i></i></div>':""}</article>`}
+    function productsPage(){return `<div class="page-header"><h1>Sản phẩm của shop</h1><button class="primary" onclick="go('add-product')">＋ Thêm sản phẩm</button></div><section class="card page-box"><div class="toolbar"><input placeholder="Tìm tên sản phẩm..." oninput="filterProducts(this.value)"><select onchange="filterStatus(this.value)"><option value="">Tất cả trạng thái</option><option>Đang bán</option><option>Hết hàng</option></select><button class="secondary" onclick="notify('Đã tải danh sách sản phẩm')">Xuất danh sách</button></div><table class="data-table"><thead><tr><th>Sản phẩm</th><th>Danh mục</th><th>Giá</th><th>Tồn kho</th><th>Trạng thái</th><th>Thao tác</th></tr></thead><tbody id="productRows">${productRows(inventory)}</tbody></table></section>`}
+    function productRows(list){return list.map((p,i)=>`<tr><td><span class="product-thumb">${p.icon}</span>${p.name}</td><td>${p.category}</td><td>${fmt(p.price)}</td><td>${p.stock}</td><td><span class="status ${p.status==="Đang bán"?"ok":""}">${p.status}</span></td><td><button class="link" onclick="notify('Đang mở chỉnh sửa sản phẩm')">Sửa</button></td></tr>`).join("")||'<tr><td colspan="6">Không tìm thấy sản phẩm.</td></tr>'}
+    function filterProducts(value){const filtered=inventory.filter(p=>p.name.toLowerCase().includes(value.toLowerCase()));document.getElementById("productRows").innerHTML=productRows(filtered)}
+    function filterStatus(value){const filtered=inventory.filter(p=>!value||p.status===value);document.getElementById("productRows").innerHTML=productRows(filtered)}
+    function addProductPage(){return `<div class="page-header"><h1>Thêm sản phẩm mới</h1><button class="secondary" onclick="go('products')">← Danh sách sản phẩm</button></div><section class="card page-box"><form class="seller-form" onsubmit="publishProduct(event)"><div class="field"><label>Tên sản phẩm *</label><input id="pName" required placeholder="Nhập tên sản phẩm"></div><div class="field-row"><div class="field"><label>Danh mục *</label><select id="pCategory"><option>Thời trang</option><option>Điện tử</option><option>Nhà cửa</option><option>Làm đẹp</option><option>Thực phẩm</option></select></div><div class="field"><label>Giá bán *</label><input id="pPrice" type="number" min="1000" required placeholder="129000"></div></div><div class="field-row"><div class="field"><label>Số lượng tồn kho *</label><input id="pStock" type="number" min="0" required placeholder="100"></div><div class="field"><label>Ảnh đại diện</label><div class="upload"><label>＋ Chọn ảnh sản phẩm <input type="file" accept="image/*" hidden></label></div></div></div><div class="field"><label>Mô tả sản phẩm</label><textarea placeholder="Thông tin chi tiết sản phẩm..."></textarea></div><button class="primary">Đăng sản phẩm</button></form></section>`}
+    async function publishProduct(e){
+      e.preventDefault();
+      const name=document.getElementById("pName").value.trim();
+      const price=Number(document.getElementById("pPrice").value);
+      const stock=Number(document.getElementById("pStock").value);
+      const category=document.getElementById("pCategory").value;
+      if(typeof addProductToCloud!=="function"){
+        console.error("Không thể đăng sản phẩm: hàm addProductToCloud chưa được tải.");
+        notify("Không thể kết nối Cloud để đăng sản phẩm.");
+        return;
+      }
+      const savedData=await addProductToCloud({name,price,category,image_url:"📦",stock,seller_name:"Shop Nhà Mây"});
+      if(!savedData||!savedData[0])return;
+      const product=savedData[0];
+      inventory.unshift({
+        id:product.id,
+        name:product.name||name,
+        category:product.category||category,
+        price:Number(product.price)||price,
+        stock:Number(product.stock)||0,
+        icon:product.image_url&&product.image_url.length<=4?product.image_url:"📦",
+        status:Number(product.stock)>0?"Đang bán":"Hết hàng"
+      });
+      notify("Đã đăng sản phẩm lên Cloud");
+      go("products");
+    }
+    async function initCloudData(){
+      if(typeof fetchProductsFromCloud!=="function"){
+        console.error("Không thể tải sản phẩm: hàm fetchProductsFromCloud chưa được tải.");
+        notify("Không thể kết nối Cloud để tải sản phẩm.");
+        return;
+      }
+      const cloudProducts=await fetchProductsFromCloud();
+      if(!cloudProducts||cloudProducts.length===0)return;
+      inventory.unshift(...cloudProducts.map(product=>({
+        id:product.id,
+        name:product.name,
+        category:product.category||"Khác",
+        price:Number(product.price)||0,
+        stock:Number(product.stock)||0,
+        icon:product.image_url&&product.image_url.length<=4?product.image_url:"📦",
+        status:Number(product.stock)>0?"Đang bán":"Hết hàng"
+      })));
+      render();
+    }
+    function ordersPage(){return `<div class="page-header"><h1>Quản lý đơn hàng</h1><button class="secondary" onclick="notify('Đã tải danh sách đơn hàng')">Tải lại</button></div><section class="card page-box"><div class="toolbar"><select><option>Tất cả đơn hàng</option><option>Chờ lấy hàng</option><option>Đang giao</option><option>Hoàn thành</option></select><input placeholder="Tìm mã đơn hàng"></div><table class="data-table"><thead><tr><th>Mã đơn</th><th>Sản phẩm</th><th>Ngày đặt</th><th>Tổng tiền</th><th>Trạng thái</th><th>Thao tác</th></tr></thead><tbody><tr><td>CV-261119-048</td><td>🎧 Tai nghe Bluetooth × 1</td><td>19/11/2026</td><td>189.000₫</td><td><span class="status">Chờ lấy hàng</span></td><td><button class="link" onclick="notify('Đã xác nhận đơn hàng')">Xác nhận</button></td></tr><tr><td>CV-261118-042</td><td>🥤 Bình giữ nhiệt × 2</td><td>18/11/2026</td><td>198.000₫</td><td><span class="status ok">Đang giao</span></td><td><button class="link" onclick="notify('Đang xem chi tiết đơn')">Chi tiết</button></td></tr><tr><td>CV-261117-038</td><td>👕 Áo thun cotton × 1</td><td>17/11/2026</td><td>129.000₫</td><td><span class="status ok">Hoàn thành</span></td><td><button class="link" onclick="notify('Đang xem chi tiết đơn')">Chi tiết</button></td></tr></tbody></table></section>`}
+    function shopPage(){return `<div class="page-header"><h1>Trang trí gian hàng</h1><button class="primary" onclick="notify('Đã lưu giao diện gian hàng')">Lưu thay đổi</button></div><section class="card page-box"><div class="shop-cover"><div><h2>☁️ Shop Nhà Mây</h2><p>Đồ dùng xinh xắn cho cuộc sống tiện nghi hơn.</p></div></div><form class="seller-form" onsubmit="event.preventDefault();notify('Đã cập nhật thông tin gian hàng')"><div class="field"><label>Tên gian hàng</label><input value="Shop Nhà Mây"></div><div class="field"><label>Mô tả</label><textarea>Đồ dùng xinh xắn cho cuộc sống tiện nghi hơn mỗi ngày.</textarea></div><div class="field-row"><div class="field"><label>Màu sắc chủ đạo</label><input type="color" value="#137c82"></div><div class="field"><label>Ảnh bìa</label><input type="file" accept="image/*"></div></div><button class="primary">Cập nhật gian hàng</button></form></section>`}
+    function boostPage(){return `<div class="page-header"><h1>Đẩy sản phẩm</h1><small>Chọn gói quảng bá phù hợp với mục tiêu của shop</small></div><div class="promo-grid">${[["Khởi động","3 ngày","49.000₫","Tăng hiển thị cơ bản"],["Tăng tốc","7 ngày","99.000₫","Ưu tiên trong danh mục"],["Bứt phá","14 ngày","179.000₫","Hiển thị nổi bật"]].map(x=>`<section class="card page-box"><h2>${x[0]}</h2><p style="color:var(--muted)">${x[1]} · ${x[3]}</p><h2 style="color:var(--teal)">${x[2]}</h2><button class="primary" onclick="notify('Đã chọn gói ${x[0]}')">Chọn gói</button></section>`).join("")}</div><section class="card page-box" style="margin-top:12px"><label>Chọn sản phẩm muốn quảng bá</label><select class="form-control" style="display:block;margin:8px 0;width:min(450px,100%)">${inventory.map(p=>`<option>${p.name}</option>`).join("")}</select><button class="primary" onclick="notify('Chiến dịch quảng bá đã được tạo')">Tạo chiến dịch</button></section>`}
+    function marketingPage(){return `<div class="page-header"><h1>Kênh Marketing</h1><button class="primary" onclick="notify('Đã đăng ký nhận thông tin chương trình')">Khám phá chiến dịch</button></div><div class="promo-grid"><section class="card page-box"><h2>🎉 Chương trình khuyến mãi</h2><p>Tạo mã giảm giá và ưu đãi riêng cho khách hàng của shop.</p><button class="secondary" onclick="notify('Đã mở thiết lập khuyến mãi')">Tạo khuyến mãi</button></section><section class="card page-box"><h2>🤝 Tiếp thị liên kết</h2><p>Mời nhà sáng tạo nội dung giới thiệu sản phẩm của bạn.</p><button class="secondary" onclick="notify('Đã mở chương trình tiếp thị')">Tìm nhà sáng tạo</button></section><section class="card page-box"><h2>📺 Livestream</h2><p>Lên lịch buổi phát trực tiếp để kết nối với người mua.</p><button class="secondary" onclick="notify('Tính năng livestream sẽ sớm mở')">Tạo lịch phát</button></section></div>`}
+    function analyticsPage(){return `<div class="page-header"><h1>Phân tích bán hàng</h1><select class="form-control"><option>7 ngày gần nhất</option><option>30 ngày gần nhất</option></select></div><section class="card page-box"><div class="sales-metrics">${[["Doanh số","15.820.000₫"],["Lượt truy cập","8.406"],["Lượt xem sản phẩm","24.120"],["Đơn hàng","126"],["Tỷ lệ chuyển đổi","3,8%"]].map(x=>`<div class="metric"><small>${x[0]}</small><strong>${x[1]}</strong><em class="good">↑ 8,4% so với kỳ trước</em></div>`).join("")}</div><div style="height:220px;margin:22px 4px 12px;display:flex;align-items:end;justify-content:space-around;background:repeating-linear-gradient(to bottom,#fff 0,#fff 49px,#edf1f2 50px)">${[40,66,50,78,59,93,71].map((h,i)=>`<div style="height:${h}%;width:7%;background:linear-gradient(#6bc4b2,#177c83);border-radius:5px 5px 0 0;position:relative"><small style="position:absolute;bottom:-20px;left:30%;color:#879398">${["T2","T3","T4","T5","T6","T7","CN"][i]}</small></div>`).join("")}</div></section>`}
+    const chats=[
+      {id:"sxmb39",name:"sxmb39",date:"27/06",preview:"Xem kết quả",tag:"Đã bị khóa",avatar:"SX",type:"green"},
+      {id:"sxmb39-2",name:"sxmb39",date:"27/06",preview:"Xem kết quả",tag:"Đã bị khóa",avatar:"SX",type:"green"},
+      {id:"yunanun",name:"YUNANUN Mall",date:"28/06/25",preview:"[Sản phẩm] Bọt biển tẩy tế bào...",tag:"",avatar:"YU",type:"mall"},
+      {id:"linhkien",name:"linhkienlaptop.",date:"16/06/25",preview:"[Hình ảnh]",tag:"",avatar:"L",type:""}
+    ];
+    let selectedChat=null;
+    function chatPage(){
+      return `<section class="chat-shell">
+        <aside class="chat-sidebar"><div class="chat-main-header" style="height:54px"><h1 style="color:#ed5050">Chat</h1></div><div class="chat-toolbar"><div class="chat-search"><span>⌕</span><input id="chatSearch" placeholder="Tìm theo tên" oninput="filterChats(this.value)"></div><select onchange="filterChatStatus(this.value)"><option value="">Tất cả</option><option value="tag">Đã bị khóa</option></select></div><div class="chat-conversations" id="chatConversations">${chatRows(chats)}</div></aside>
+        <main class="chat-main"><div class="chat-main-header"><h1 style="visibility:hidden">Chat</h1><div class="chat-header-actions"><button title="Cửa sổ chat" onclick="notify('Đang mở cửa sổ chat')">□</button><button title="Đóng" onclick="selectChat(null)">⌄</button></div></div><div id="chatContent">${selectedChat?chatConversation():chatEmpty()}</div></main>
+      </section>`;
+    }
+    function chatRows(list){return list.map(chat=>`<article class="chat-item ${selectedChat===chat.id?"active":""}" onclick="selectChat('${chat.id}')"><div class="chat-avatar ${chat.type}">${chat.avatar}</div><div><div class="chat-item-head"><span class="chat-name">${chat.name}</span><span class="chat-date">${chat.date}</span></div><div class="chat-item-body"><span class="chat-preview">${chat.preview}</span>${chat.tag?`<span class="chat-tag">${chat.tag}</span>`:""}</div></div></article>`).join("")||'<div style="padding:20px;text-align:center;color:var(--muted)">Không tìm thấy hội thoại</div>'}
+    function filterChats(value){const query=value.toLowerCase();const filtered=chats.filter(chat=>chat.name.toLowerCase().includes(query)||chat.preview.toLowerCase().includes(query));document.getElementById("chatConversations").innerHTML=chatRows(filtered)}
+    function filterChatStatus(value){const filtered=value?chats.filter(chat=>chat.tag):chats;document.getElementById("chatConversations").innerHTML=chatRows(filtered)}
+    function chatEmpty(){return `<div class="chat-empty"><div class="chat-empty-inner"><div class="chat-illustration"><div class="laptop-screen"></div><div class="laptop-base"></div><div class="chat-bubble-art"></div></div><h2>Chào mừng bạn đến với Shop Chat</h2><p>Trò chuyện với người bán ngay!</p></div></div>`}
+    function selectChat(id){selectedChat=id;const content=document.getElementById("chatContent");const rows=document.getElementById("chatConversations");if(content)content.innerHTML=id?chatConversation():chatEmpty();if(rows)rows.innerHTML=chatRows(chats);if(id){setTimeout(()=>{const input=document.getElementById("chatReply");if(input)input.focus()},0)}}
+    function chatConversation(){const chat=chats.find(item=>item.id===selectedChat)||chats[0];return `<div class="chat-conversation"><div class="chat-conversation-head"><div class="chat-avatar ${chat.type}">${chat.avatar}</div><div><strong>${chat.name}</strong><small>Đang hoạt động</small></div></div><div class="chat-message-list" id="chatMessageList"><div class="message-row"><div class="message-bubble">Xin chào, tôi cần tư vấn về sản phẩm này.<span class="message-time">09:30</span></div></div><div class="message-row mine"><div class="message-bubble">Chào bạn! Shop Nhà Mây có thể hỗ trợ bạn.<span class="message-time">09:31</span></div></div></div><div class="chat-composer"><button title="Đính kèm">⌕</button><button title="Thêm">＋</button><input id="chatReply" placeholder="Nhập tin nhắn..." onkeydown="if(event.key==='Enter')sendChatReply()"><button class="send-chat" onclick="sendChatReply()">Gửi</button></div></div>`}
+    function sendChatReply(){const input=document.getElementById("chatReply");if(!input)return;const text=input.value.trim();if(!text)return;const area=document.getElementById("chatMessageList");const bubble=document.createElement("div");bubble.className="message-row mine";bubble.innerHTML='<div class="message-bubble"></div>';bubble.querySelector(".message-bubble").textContent=text;const time=document.createElement("span");time.className="message-time";time.textContent="Vừa xong";bubble.querySelector(".message-bubble").appendChild(time);area.appendChild(bubble);input.value="";area.scrollTop=area.scrollHeight}
+    function render(){const page=document.getElementById("page");const workspace=document.querySelector(".workspace");workspace.classList.toggle("chat-mode",activePage==="chat");if(activePage==="overview")page.innerHTML=dashboard();else if(activePage==="products")page.innerHTML=productsPage();else if(activePage==="add-product")page.innerHTML=addProductPage();else if(activePage==="orders")page.innerHTML=ordersPage();else if(activePage==="shop")page.innerHTML=shopPage();else if(activePage==="boost")page.innerHTML=boostPage();else if(activePage==="marketing")page.innerHTML=marketingPage();else if(activePage==="analytics")page.innerHTML=analyticsPage();else if(activePage==="chat")page.innerHTML=chatPage()}
+    document.querySelectorAll(".side-btn").forEach(b=>b.addEventListener("click",()=>go(b.dataset.page)));
+    render();
+    initCloudData();
+  </script>
+ 
+</body>
+</html>
