@@ -225,7 +225,7 @@
       9:{shop:"Đặc Sản Việt",brand:"Rang Mộc",stock:64,warranty:"Đổi mới nếu lỗi do đóng gói",warrantyType:"Hỗ trợ từ cửa hàng",madeToOrder:"Không",size:"Túi 500 g",shipFrom:"Đắk Lắk",variants:["Nguyên hạt","Xay vừa","Xay mịn"],description:"Cà phê rang xay đóng túi 500 g, phù hợp pha phin hoặc pha máy."},
       10:{shop:"Shop Nhà Mây",brand:"Nhà Mây Garden",stock:17,warranty:"Hỗ trợ trong 7 ngày",warrantyType:"Hỗ trợ từ cửa hàng",madeToOrder:"Không",size:"Chậu mini 8–10 cm",shipFrom:"TP. Hồ Chí Minh",variants:["Chậu trắng","Chậu đất nung"],description:"Chậu cây mini trang trí bàn làm việc, kích thước nhỏ gọn và dễ chăm sóc."}
     };
-    let cart={},currentView="home",categoryFilter="",query="",sellerTab="overview",profileTab="info",supportCategory="",currentProductId=0,selectedProductQuantity=1,selectedProductVariant=0,selectedReviewRating=0,deliveryAddress="12 Nguyễn Trãi, Phường Bến Thành, Quận 1, TP. Hồ Chí Minh",flashSeconds=8639,currentUser=null;
+    let cart={},currentView="home",categoryFilter="",query="",sellerTab="overview",profileTab="info",supportCategory="",currentProductId=0,selectedProductQuantity=1,selectedProductVariant=0,selectedReviewRating=0,deliveryAddress="12 Nguyễn Trãi, Phường Bến Thành, Quận 1, TP. Hồ Chí Minh",flashSeconds=8639,currentUser=null,pendingLogin=null;
     const sharedProductParam=new URLSearchParams(window.location.search).get("product"),sharedProductId=sharedProductParam===null?null:Number(sharedProductParam);
     if(sharedProductParam!==null&&Number.isSafeInteger(sharedProductId)&&products.some(item=>item.id===sharedProductId)){currentView="product";currentProductId=sharedProductId;history.replaceState({view:"product",productId:sharedProductId,scrollY:0},"")}else if(sharedProductParam===null&&history.state&&["home","seller","profile","support","product"].includes(history.state.view)&&(history.state.view!=="product"||products.some(item=>item.id===history.state.productId))){currentView=history.state.view;currentProductId=history.state.productId||0}else{history.replaceState({view:"home",productId:null,scrollY:0},"")}
     if("scrollRestoration" in history)history.scrollRestoration="manual";
@@ -400,7 +400,49 @@
     function filterProductReviews(rating){selectedReviewRating=rating;let visible=0;document.querySelectorAll(".product-review").forEach(review=>{const matches=!rating||Number(review.dataset.rating)===rating;review.style.display=matches?"":"none";if(matches)visible++});document.querySelectorAll(".product-rating-filter").forEach(button=>{const active=Number(button.dataset.ratingFilter)===rating;button.classList.toggle("active",active);button.setAttribute("aria-pressed",String(active))});const empty=document.querySelector(".product-review-empty");if(empty)empty.style.display=visible?"none":"block"}
     function showModal(html){document.getElementById("modal").innerHTML=html;document.getElementById("modalBackdrop").style.display="flex"}
     function closeModal(){document.getElementById("modalBackdrop").style.display="none"}
-    function showLogin(){showModal(`<div class="modal-head"><h2>Đăng nhập</h2><button class="close" onclick="closeModal()">×</button></div><p class="hint">Đăng nhập bằng email và mật khẩu đã đăng ký.</p><form onsubmit="signInWithEmail(event)"><div class="field"><label>Email</label><input name="email" type="email" required autocomplete="email" placeholder="email@example.com"></div><div class="field"><label>Mật khẩu</label><input name="password" type="password" required autocomplete="current-password" placeholder="Nhập mật khẩu"></div><button class="orange-btn" style="width:100%">Đăng nhập</button></form><p style="text-align:center">Chưa có tài khoản? <a href="#" onclick="showRegister();return false" style="color:var(--orange)">Đăng ký ngay</a></p>`)}
+    function showLogin(){pendingLogin=null;showModal(`<div class="modal-head"><h2>Đăng nhập</h2><button class="close" onclick="closeModal()">×</button></div><p class="hint">Nhận mã xác minh qua email hoặc SMS.</p><form onsubmit="requestLoginCode(event,'email')"><div class="field"><label>Email</label><input name="identifier" type="email" required autocomplete="email" placeholder="email@example.com"></div><button class="outline-btn" style="width:100%">Gửi mã qua email</button></form><form onsubmit="requestLoginCode(event,'sms')" style="margin-top:14px"><div class="field"><label>Số điện thoại</label><input name="identifier" type="tel" required autocomplete="tel" placeholder="+84 901 234 567"></div><button class="outline-btn" style="width:100%">Gửi mã qua SMS</button></form><p class="hint">Hoặc đăng nhập bằng</p><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px"><button type="button" class="outline-btn" onclick="signInWithProvider('google')">Google</button><button type="button" class="outline-btn" onclick="signInWithProvider('facebook')">Facebook</button><button type="button" class="outline-btn" onclick="signInWithProvider('apple')">Apple ID</button></div><p style="text-align:center">Chưa có tài khoản? <a href="#" onclick="showRegister();return false" style="color:var(--orange)">Đăng ký</a></p>`)}
+    function showOtpVerification(){if(!pendingLogin)return;const destination=pendingLogin.identifier;showModal(`<div class="modal-head"><h2>Nhập mã xác minh</h2><button class="close" onclick="closeModal()">×</button></div><p class="hint">Đã gửi mã đến <b>${escapeHtml(destination)}</b>. Kiểm tra email hoặc tin nhắn SMS.</p><form onsubmit="verifyLoginCode(event)"><div class="field"><label>Mã xác minh</label><input name="token" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6,8}" minlength="6" maxlength="8" required placeholder="Nhập mã"></div><button class="orange-btn" style="width:100%">Xác minh và đăng nhập</button></form><div style="display:flex;justify-content:space-between;margin-top:12px"><button type="button" class="outline-btn" onclick="resendLoginCode()">Gửi lại mã</button><button type="button" class="outline-btn" onclick="showLogin()">Quay lại</button></div>`)}
+    function normalizePhoneNumber(value){const phone=value.replace(/[\s().-]/g,"");if(/^0\d{9}$/.test(phone))return "+84"+phone.slice(1);return phone}
+    async function requestLoginCode(event,method){
+      event.preventDefault();
+      const identifier=String(new FormData(event.currentTarget).get("identifier")||"").trim();
+      const target=method==="sms"?normalizePhoneNumber(identifier):identifier;
+      try{
+        const request=method==="sms"?{phone:target,options:{shouldCreateUser:true}}:{email:target,options:{shouldCreateUser:true}};
+        const {error}=await supabaseClient.auth.signInWithOtp(request);
+        if(error){console.error("Không thể gửi mã đăng nhập:",error);toast("Không thể gửi mã: "+error.message);return}
+        pendingLogin={method,identifier:target};
+        showOtpVerification();
+      }catch(error){console.error("Lỗi gửi mã đăng nhập:",error);toast("Không thể gửi mã. Hãy kiểm tra cấu hình email/SMS của Supabase.")}
+    }
+    async function verifyLoginCode(event){
+      event.preventDefault();
+      if(!pendingLogin){toast("Vui lòng yêu cầu mã xác minh trước.");return}
+      const token=String(new FormData(event.currentTarget).get("token")||"").trim();
+      try{
+        const credentials=pendingLogin.method==="sms"?{phone:pendingLogin.identifier,token,type:"sms"}:{email:pendingLogin.identifier,token,type:"email"};
+        const {data,error}=await supabaseClient.auth.verifyOtp(credentials);
+        if(error){console.error("Mã xác minh không hợp lệ:",error);toast("Xác minh thất bại: "+error.message);return}
+        currentUser=data.user;pendingLogin=null;closeModal();render();toast("Đăng nhập thành công.");
+      }catch(error){console.error("Lỗi xác minh mã đăng nhập:",error);toast("Không thể xác minh mã. Vui lòng thử lại.")}
+    }
+    async function resendLoginCode(){
+      if(!pendingLogin)return;
+      try{
+        const request=pendingLogin.method==="sms"?{phone:pendingLogin.identifier,options:{shouldCreateUser:true}}:{email:pendingLogin.identifier,options:{shouldCreateUser:true}};
+        const {error}=await supabaseClient.auth.signInWithOtp(request);
+        if(error){console.error("Không thể gửi lại mã:",error);toast("Không thể gửi lại mã: "+error.message);return}
+        toast("Đã gửi lại mã xác minh.");
+      }catch(error){console.error("Lỗi gửi lại mã:",error);toast("Không thể gửi lại mã. Vui lòng thử lại.")}
+    }
+    async function signInWithProvider(provider){
+      try{
+        const options={};
+        if(window.location.protocol!=="file:")options.redirectTo=window.location.origin+window.location.pathname;
+        const {error}=await supabaseClient.auth.signInWithOAuth({provider,options});
+        if(error){console.error("Đăng nhập OAuth thất bại:",error);toast("Đăng nhập thất bại: "+error.message)}
+      }catch(error){console.error("Không thể bắt đầu đăng nhập OAuth:",error);toast("Không thể mở đăng nhập nhà cung cấp. Kiểm tra cấu hình Supabase.")}
+    }
     function showRegister(){showModal(`<div class="modal-head"><h2>Tạo tài khoản mới</h2><button class="close" onclick="closeModal()">×</button></div><form onsubmit="registerWithEmail(event)"><div class="field"><label>Họ và tên</label><input name="fullName" required autocomplete="name" placeholder="Tên của bạn"></div><div class="field"><label>Số điện thoại</label><input name="phone" type="tel" required autocomplete="tel" placeholder="09xx xxx xxx"></div><div class="field"><label>Email</label><input name="email" type="email" required autocomplete="email" placeholder="email@example.com"></div><div class="field"><label>Mật khẩu</label><input name="password" type="password" required minlength="6" autocomplete="new-password" placeholder="Tối thiểu 6 ký tự"></div><button class="orange-btn" style="width:100%">Đăng ký</button></form><p class="hint">Hồ sơ lưu trong tài khoản Supabase. Mật khẩu do Supabase Auth quản lý.</p>`)}
     async function signInWithEmail(event){
       event.preventDefault();
